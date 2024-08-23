@@ -1,0 +1,19 @@
+apiVersion: kubeflow.org/v1
+kind: TFJob
+metadata:
+  name: fashion-mnist-training
+spec:
+  tfReplicaSpecs:
+    Worker:
+      replicas: 1
+      restartPolicy: OnFailure
+      template:
+        spec:
+          containers:
+          - name: tensorflow
+            image: daniil047/fashion-mnist-model:latest
+            command: [\"python\", \"/app/app.py\"]
+            resources:
+              limits:
+                memory: \"2Gi\"
+                cpu: \"1\"
